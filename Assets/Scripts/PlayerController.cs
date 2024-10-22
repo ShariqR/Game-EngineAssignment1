@@ -2,8 +2,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
-    public Rigidbody2D rb;
-    public float moveSpeed = 3f;
+    Rigidbody2D rb;
+    [SerializeField] int moveSpeed;
     public PlayerInputActions playerControls;
 
     Vector2 moveDirection = Vector2.zero;
@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        rb = GetComponent<Rigidbody2D>();
         playerControls = new PlayerInputActions();
     }
 
@@ -30,12 +31,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Vector2 currentVelocity = rb.linearVelocity;
+        rb.linearVelocity = new Vector2(moveDirection.x * moveSpeed, currentVelocity.y);
+
         moveDirection = movement.ReadValue<Vector2>();
-    }
-        
-    private void FixedUpdate()
-    {
-        rb.linearVelocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
     }
 
     private void Move(InputAction.CallbackContext context)
