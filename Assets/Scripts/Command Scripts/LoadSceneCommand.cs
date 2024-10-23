@@ -13,4 +13,9 @@ public class LoadSceneCommand : ICommand
     {
         SceneManager.LoadSceneAsync(sceneNumber);
     }
+
+    public void Undo()
+    {
+        //empty as there is no undo for this command
+    }
 }

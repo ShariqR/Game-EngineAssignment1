@@ -8,7 +8,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] LayerMask groundLayer;  // For checking if grounded
     [SerializeField] Transform groundCheck;  // Position to check for ground
     [SerializeField] float groundCheckRadius = 0.2f; // Radius for ground check
+    [SerializeField] AudioClip jumpSound;
     public PlayerInputActions playerControls;
+
 
     Vector2 moveDirection = Vector2.zero;
     private InputAction movement;
@@ -59,6 +61,7 @@ public class PlayerController : MonoBehaviour
     {
         if (isGrounded)
         {
+            AudioManager.Instance.PlaySFX(jumpSound);
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower); // Apply upward force for jump
             Debug.Log("Jumping");
         }
