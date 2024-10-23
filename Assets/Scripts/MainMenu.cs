@@ -4,12 +4,15 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     public static MainMenu manager;
-    int sceneNumber;
+    private int sceneNumber;
+    private SceneInvoker sceneInvoker;
 
     void Start()
     {
         sceneNumber = 0;
+        sceneInvoker = new SceneInvoker();
     }
+
     void Awake()
     {
         if (manager == null)
@@ -25,11 +28,13 @@ public class MainMenu : MonoBehaviour
     public void LoadScene()
     {
         sceneNumber++;
-        if (sceneNumber > 1)
+        if (sceneNumber > 3)
         {
             sceneNumber = 0;
         }
-        SceneManager.LoadSceneAsync(sceneNumber);
-    }
+        ICommand loadSceneCommand = new LoadSceneCommand(sceneNumber);
 
+        sceneInvoker.SetCommand(loadSceneCommand);
+        sceneInvoker.ExecuteCommand();
+    }
 }
