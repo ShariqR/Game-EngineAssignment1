@@ -1,7 +1,7 @@
 using UnityEngine;
 
-public interface ICommand
+public abstract class Command
 {
-    void Execute();
-    void Undo();
+    public abstract void Execute();
+    public abstract void Undo();
 }

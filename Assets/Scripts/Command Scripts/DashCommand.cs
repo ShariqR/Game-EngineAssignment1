@@ -1,16 +1,26 @@
 using UnityEngine;
 
-public class DashCommand : MonoBehaviour
+public class DashCommand : Command
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    Rigidbody2D rb;
+    Vector2 direction;
+    int dashSpeed;
+    public DashCommand(Rigidbody2D rb, Vector2 direction, int dashSpeed)
     {
-        
+        this.rb = rb; 
+        this.direction = direction;   
+        this.dashSpeed = dashSpeed; 
+
+    }
+    public override void Execute()
+    {
+        rb.AddForce(direction * dashSpeed, ForceMode2D.Impulse);
+        Debug.Log("Performing Dash");
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Undo()
     {
-        
+        rb.AddForce(-direction * dashSpeed, ForceMode2D.Impulse);
+        Debug.Log("Performing Reverse Dash");
     }
 }

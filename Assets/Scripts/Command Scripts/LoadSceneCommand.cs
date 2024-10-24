@@ -1,6 +1,6 @@
 using UnityEngine.SceneManagement;
 
-public class LoadSceneCommand : ICommand
+public class LoadSceneCommand : Command
 {
     private int sceneNumber;
 
@@ -9,12 +9,12 @@ public class LoadSceneCommand : ICommand
         this.sceneNumber = sceneNumber;
     }
 
-    public void Execute()
+    public override void Execute()
     {
         SceneManager.LoadSceneAsync(sceneNumber);
     }
 
-    public void Undo()
+    public override void Undo()
     {
         //empty as there is no undo for this command
     }

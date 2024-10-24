@@ -32,7 +32,7 @@ public class MainMenu : MonoBehaviour
         {
             sceneNumber = 0;
         }
-        ICommand loadSceneCommand = new LoadSceneCommand(sceneNumber);
+        Command loadSceneCommand = new LoadSceneCommand(sceneNumber);
 
         sceneInvoker.SetCommand(loadSceneCommand);
         sceneInvoker.ExecuteCommand();

@@ -636,12 +636,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  dashMultiplier: 20
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
   groundCheck: {fileID: 535869390}
   groundCheckRadius: 0.2
+  bulletSpeed: 30
+  bullet: {fileID: 2058127797608120500, guid: b701d1d1ca751f440b189f0ce8ed8fcd, type: 3}
   jumpSound: {fileID: 8300000, guid: d37a0d02e85dec547917a8cbb9e98fb4, type: 3}
+  gunshot: {fileID: 8300000, guid: 894818c01a3a8cb4594e51bb1d7d1a6f, type: 3}
 --- !u!1 &1109144024
 GameObject:
   m_ObjectHideFlags: 0

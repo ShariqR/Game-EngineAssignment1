@@ -1,3 +1,4 @@
+using System.Windows.Input;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,10 +6,14 @@ public class PlayerController : MonoBehaviour
 {
     Rigidbody2D rb;
     [SerializeField] int moveSpeed;
+    [SerializeField] int dashMultiplier;
     [SerializeField] LayerMask groundLayer;  // For checking if grounded
     [SerializeField] Transform groundCheck;  // Position to check for ground
     [SerializeField] float groundCheckRadius = 0.2f; // Radius for ground check
+    [SerializeField] int bulletSpeed;
+    [SerializeField] GameObject bullet;
     [SerializeField] AudioClip jumpSound;
+    [SerializeField] AudioClip gunshot;
     public PlayerInputActions playerControls;
 
 
@@ -22,6 +27,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         playerControls = new PlayerInputActions();
+        
     }
 
     private void OnEnable()
@@ -46,10 +52,22 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 currentVelocity = rb.linearVelocity;
         rb.linearVelocity = new Vector2(moveDirection.x * moveSpeed, currentVelocity.y);
-
         moveDirection = movement.ReadValue<Vector2>();
-
+        Command dashCommand = new DashCommand(rb, moveDirection, (moveSpeed * dashMultiplier));
+        Command fireCommand = new FireCommand(bullet, rb, bulletSpeed, moveDirection);
         CheckIfGrounded(); // Check if the player is on the ground
+
+        if (Input.GetKeyDown(KeyCode.Q))
+            dashCommand.Execute();
+        else if (Input.GetKeyDown(KeyCode.E))
+            dashCommand.Undo();
+
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            AudioManager.Instance.PlaySFX(gunshot);
+            fireCommand.Execute();
+        }
+            
     }
 
     private void Move(InputAction.CallbackContext context)

@@ -1,9 +1,9 @@
 using UnityEngine;
 public class SceneInvoker
 {
-    private ICommand command;
+    private Command command;
 
-    public void SetCommand(ICommand command)
+    public void SetCommand(Command command)
     {
         this.command = command;
     }
