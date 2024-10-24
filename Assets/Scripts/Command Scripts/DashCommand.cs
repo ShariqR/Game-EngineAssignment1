@@ -14,13 +14,30 @@ public class DashCommand : Command
     }
     public override void Execute()
     {
-        rb.AddForce(direction * dashSpeed, ForceMode2D.Impulse);
+        if (direction == Vector2.zero)
+        {
+            rb.AddForce(Vector2.right * dashSpeed, ForceMode2D.Impulse);
+        }
+        else
+        {
+            rb.AddForce(direction * dashSpeed, ForceMode2D.Impulse);
+        }
+        
         Debug.Log("Performing Dash");
     }
 
     public override void Undo()
     {
-        rb.AddForce(-direction * dashSpeed, ForceMode2D.Impulse);
+
+        if (direction == Vector2.zero)
+        {
+            rb.AddForce(Vector2.left * dashSpeed, ForceMode2D.Impulse);
+        }
+        else
+        {
+            rb.AddForce(-direction * dashSpeed, ForceMode2D.Impulse);
+        }
+        
         Debug.Log("Performing Reverse Dash");
     }
 }

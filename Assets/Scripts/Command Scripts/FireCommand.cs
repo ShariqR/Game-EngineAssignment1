@@ -4,12 +4,12 @@ using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class FireCommand : Command
 {
-    private GameObject bullet;
+    GameObject bullet;
     Rigidbody2D rb;
-    private float bulletSpeed;
+    int bulletSpeed;
     Vector2 direction;
 
-    public FireCommand(GameObject bullet, Rigidbody2D rb, float bulletSpeed, Vector2 direction)
+    public FireCommand(GameObject bullet, Rigidbody2D rb, int bulletSpeed, Vector2 direction)
     {
         this.bullet = bullet;
         this.rb = rb;
