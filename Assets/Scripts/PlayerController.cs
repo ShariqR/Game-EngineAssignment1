@@ -1,10 +1,15 @@
+using System;
 using System.Windows.Input;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Subject
 {
     Rigidbody2D rb;
+    [SerializeField] int health = 100; //Starting health
+    [SerializeField] int maxHealth = 100;
+    //[SerializeField] int ammo = 0;
     [SerializeField] int moveSpeed;
     [SerializeField] int dashMultiplier;
     [SerializeField] LayerMask groundLayer;  // For checking if grounded
@@ -15,18 +20,29 @@ public class PlayerController : MonoBehaviour
     [SerializeField] AudioClip jumpSound;
     [SerializeField] AudioClip gunshot;
     public PlayerInputActions playerControls;
-
-
+    
     Vector2 moveDirection = Vector2.zero;
     private InputAction movement;
     private InputAction jumpAction; // Add this for jump input
     private float jumpPower = 15f;
     private bool isGrounded;
 
+    [SerializeField] private UI ui;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         playerControls = new PlayerInputActions();
+
+        if (ui != null)
+        {
+            AddObserver(ui);
+        }
+        else
+        {
+            Debug.LogWarning("UI is null");
+        }
+        
         
     }
 
@@ -89,5 +105,33 @@ public class PlayerController : MonoBehaviour
     private void CheckIfGrounded()
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+    }
+
+    private void TakeDamage(int damage)
+    {
+        
+        health -= damage;
+        if (health < 0) health = 0;
+
+        NotifyObservers(health);
+
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            TakeDamage(20);
+            Debug.Log("ouchie");
+        }
+    }
+
+    private void Die()
+    {
+        Debug.Log("Player is dead");
     }
 }
