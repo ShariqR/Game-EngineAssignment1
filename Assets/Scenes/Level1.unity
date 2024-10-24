@@ -618,6 +618,14 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: cf2528e3-c25b-427c-9655-378c5c91d830
     m_ActionName: 'Player/Jump[/Keyboard/space,/Keyboard/w]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c9c6a6cc-168e-4bf3-97ae-ff0d0370f22b
+    m_ActionName: 'Player/Dash[/Keyboard/q]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 86a72db3-aa6c-4c53-9727-db27aefd7c79
+    m_ActionName: 'Player/Reverse Dash[/Keyboard/e]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -636,7 +644,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  dashMultiplier: 20
+  dashMultiplier: 30
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
