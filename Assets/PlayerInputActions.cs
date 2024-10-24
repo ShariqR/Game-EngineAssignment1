@@ -53,6 +53,24 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Dash"",
+                    ""type"": ""Button"",
+                    ""id"": ""c9c6a6cc-168e-4bf3-97ae-ff0d0370f22b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Reverse Dash"",
+                    ""type"": ""Button"",
+                    ""id"": ""86a72db3-aa6c-4c53-9727-db27aefd7c79"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -229,6 +247,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""XR"",
                     ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d0c121b4-6c09-45d8-ad0d-0875d7ce8ad5"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3aed1257-82f7-4d42-be47-c40965bd74ca"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Reverse Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -819,6 +859,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
+        m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
+        m_Player_ReverseDash = m_Player.FindAction("Reverse Dash", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -901,6 +943,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Fire;
+    private readonly InputAction m_Player_Dash;
+    private readonly InputAction m_Player_ReverseDash;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -908,6 +952,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
+        public InputAction @Dash => m_Wrapper.m_Player_Dash;
+        public InputAction @ReverseDash => m_Wrapper.m_Player_ReverseDash;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -926,6 +972,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Fire.started += instance.OnFire;
             @Fire.performed += instance.OnFire;
             @Fire.canceled += instance.OnFire;
+            @Dash.started += instance.OnDash;
+            @Dash.performed += instance.OnDash;
+            @Dash.canceled += instance.OnDash;
+            @ReverseDash.started += instance.OnReverseDash;
+            @ReverseDash.performed += instance.OnReverseDash;
+            @ReverseDash.canceled += instance.OnReverseDash;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -939,6 +991,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Fire.started -= instance.OnFire;
             @Fire.performed -= instance.OnFire;
             @Fire.canceled -= instance.OnFire;
+            @Dash.started -= instance.OnDash;
+            @Dash.performed -= instance.OnDash;
+            @Dash.canceled -= instance.OnDash;
+            @ReverseDash.started -= instance.OnReverseDash;
+            @ReverseDash.performed -= instance.OnReverseDash;
+            @ReverseDash.canceled -= instance.OnReverseDash;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1124,6 +1182,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
+        void OnDash(InputAction.CallbackContext context);
+        void OnReverseDash(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

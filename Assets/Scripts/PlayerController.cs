@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : Subject
 {
+    public static PlayerController Instance { get; private set; }
+
     Rigidbody2D rb;
     [SerializeField] int health = 100; //Starting health
     [SerializeField] int maxHealth = 100;
@@ -20,10 +22,14 @@ public class PlayerController : Subject
     [SerializeField] AudioClip jumpSound;
     [SerializeField] AudioClip gunshot;
     public PlayerInputActions playerControls;
-    
     Vector2 moveDirection = Vector2.zero;
+
     private InputAction movement;
     private InputAction jumpAction; // Add this for jump input
+    private InputAction fireAction;
+    //private InputAction dashAction;
+   // private InputAction reverseDashAction;
+
     private float jumpPower = 15f;
     private bool isGrounded;
 
@@ -31,6 +37,17 @@ public class PlayerController : Subject
 
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         rb = GetComponent<Rigidbody2D>();
         playerControls = new PlayerInputActions();
 
@@ -54,37 +71,65 @@ public class PlayerController : Subject
         jumpAction = playerControls.Player.Jump;
         jumpAction.Enable();
 
+        fireAction = playerControls.Player.Fire;
+        fireAction.Enable();
+
         movement.performed += Move;
         jumpAction.performed += Jump;
+        fireAction.performed += Fire;
+
+        /*dashAction = playerControls.Player.Dash;
+        dashAction.Enable();
+
+        reverseDashAction = playerControls.Player.ReverseDash;
+        reverseDashAction.Enable();
+
+        dashAction.performed += Dash;
+        reverseDashAction.performed += ReverseDash;*/
     }
 
     private void OnDisable()
     {
         movement.Disable();
         jumpAction.Disable();
+        fireAction.Disable();
+        //dashAction.Disable();
+        //reverseDashAction.Disable();
     }
 
     void Update()
     {
         Vector2 currentVelocity = rb.linearVelocity;
         rb.linearVelocity = new Vector2(moveDirection.x * moveSpeed, currentVelocity.y);
-        moveDirection = movement.ReadValue<Vector2>();
-        Command dashCommand = new DashCommand(rb, moveDirection, (moveSpeed * dashMultiplier));
-        Command fireCommand = new FireCommand(bullet, rb, bulletSpeed, moveDirection);
+        moveDirection = movement.ReadValue<Vector2>().normalized;
         CheckIfGrounded(); // Check if the player is on the ground
+        Command dashCommand = new DashCommand(rb, moveDirection, (moveSpeed * dashMultiplier));
 
         if (Input.GetKeyDown(KeyCode.Q))
             dashCommand.Execute();
         else if (Input.GetKeyDown(KeyCode.E))
             dashCommand.Undo();
-
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            AudioManager.Instance.PlaySFX(gunshot);
-            fireCommand.Execute();
-        }
-            
     }
+
+
+    void Fire(InputAction.CallbackContext context)
+    {
+        Command fireCommand = new FireCommand(bullet, rb, bulletSpeed, moveDirection);
+        AudioManager.Instance.PlaySFX(gunshot);
+        fireCommand.Execute();
+    }
+
+    /*void Dash(InputAction.CallbackContext context)
+    {
+        Command dashCommand = new DashCommand(rb, moveDirection, (moveSpeed * dashMultiplier));
+        dashCommand.Execute();
+    }
+
+    void ReverseDash(InputAction.CallbackContext context)
+    {
+        Command dashCommand = new DashCommand(rb, moveDirection, (moveSpeed * dashMultiplier));
+        dashCommand.Undo();
+    } */
 
     private void Move(InputAction.CallbackContext context)
     {
