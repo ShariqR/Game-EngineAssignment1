@@ -982,7 +982,6 @@ MonoBehaviour:
   groundCheck: {fileID: 535869390}
   groundCheckRadius: 0.2
   bulletSpeed: 30
-  bullet: {fileID: 2058127797608120500, guid: b701d1d1ca751f440b189f0ce8ed8fcd, type: 3}
   jumpSound: {fileID: 8300000, guid: d37a0d02e85dec547917a8cbb9e98fb4, type: 3}
   gunshot: {fileID: 8300000, guid: 894818c01a3a8cb4594e51bb1d7d1a6f, type: 3}
   ui: {fileID: 535121539}
@@ -997,8 +996,9 @@ GameObject:
   - component: {fileID: 1109144025}
   - component: {fileID: 1109144026}
   - component: {fileID: 1109144027}
+  - component: {fileID: 1109144028}
   m_Layer: 0
-  m_Name: AudioManager
+  m_Name: Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1129,6 +1129,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1109144028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1109144024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48d9f1f98a6dad04882142124bb08ded, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalBullet: {fileID: 2058127797608120500, guid: b701d1d1ca751f440b189f0ce8ed8fcd, type: 3}
+  largeBullet: {fileID: 368370145451227587, guid: ea3fcce39774ab547ba38574d0b608a2, type: 3}
 --- !u!1 &1992929494
 GameObject:
   m_ObjectHideFlags: 0

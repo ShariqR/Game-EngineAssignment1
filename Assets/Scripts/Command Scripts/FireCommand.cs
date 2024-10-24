@@ -4,22 +4,24 @@ using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class FireCommand : Command
 {
-    GameObject bullet;
+    BulletFactory bullet;
     Rigidbody2D rb;
     int bulletSpeed;
     Vector2 direction;
+    BulletType bulletType;
 
-    public FireCommand(GameObject bullet, Rigidbody2D rb, int bulletSpeed, Vector2 direction)
+    public FireCommand(BulletFactory bullet, Rigidbody2D rb, int bulletSpeed, Vector2 direction, BulletType bulletType)
     {
         this.bullet = bullet;
         this.rb = rb;
         this.bulletSpeed = bulletSpeed;
         this.direction = direction;
+        this.bulletType = bulletType;
     }
 
     public override void Execute()
     {
-        GameObject bulletInstance = Object.Instantiate(bullet, rb.transform.position, rb.transform.rotation);
+        GameObject bulletInstance = bullet.CreateBullet(rb.transform.position, rb.transform.rotation, bulletType);
 
         Rigidbody2D bulletRb = bulletInstance.GetComponent<Rigidbody2D>();
 

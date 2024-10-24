@@ -1,4 +1,4 @@
-using System;
+  using System;
 using System.Windows.Input;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -17,8 +17,10 @@ public class PlayerController : Subject
     [SerializeField] LayerMask groundLayer;  // For checking if grounded
     [SerializeField] Transform groundCheck;  // Position to check for ground
     [SerializeField] float groundCheckRadius = 0.2f; // Radius for ground check
+
+    BulletFactory bulletFactory;
     [SerializeField] int bulletSpeed;
-    [SerializeField] GameObject bullet;
+    
     [SerializeField] AudioClip jumpSound;
     [SerializeField] AudioClip gunshot;
     public PlayerInputActions playerControls;
@@ -27,6 +29,7 @@ public class PlayerController : Subject
     private InputAction movement;
     private InputAction jumpAction; // Add this for jump input
     private InputAction fireAction;
+    private InputAction altFireAction;
     //private InputAction dashAction;
    // private InputAction reverseDashAction;
 
@@ -50,6 +53,7 @@ public class PlayerController : Subject
 
         rb = GetComponent<Rigidbody2D>();
         playerControls = new PlayerInputActions();
+        bulletFactory = FindObjectOfType<BulletFactory>();
 
         if (ui != null)
         {
@@ -74,9 +78,13 @@ public class PlayerController : Subject
         fireAction = playerControls.Player.Fire;
         fireAction.Enable();
 
+        altFireAction = playerControls.Player.AltFire;
+        altFireAction.Enable();
+
         movement.performed += Move;
         jumpAction.performed += Jump;
         fireAction.performed += Fire;
+        altFireAction.performed += AltFire;
 
         /*dashAction = playerControls.Player.Dash;
         dashAction.Enable();
@@ -93,6 +101,7 @@ public class PlayerController : Subject
         movement.Disable();
         jumpAction.Disable();
         fireAction.Disable();
+        altFireAction.Disable();
         //dashAction.Disable();
         //reverseDashAction.Disable();
     }
@@ -114,7 +123,14 @@ public class PlayerController : Subject
 
     void Fire(InputAction.CallbackContext context)
     {
-        Command fireCommand = new FireCommand(bullet, rb, bulletSpeed, moveDirection);
+        Command fireCommand = new FireCommand(bulletFactory, rb, bulletSpeed, moveDirection, BulletType.Normal);
+        AudioManager.Instance.PlaySFX(gunshot);
+        fireCommand.Execute();
+    }
+
+    void AltFire(InputAction.CallbackContext context)
+    {
+        Command fireCommand = new FireCommand(bulletFactory, rb, bulletSpeed, moveDirection, BulletType.Large);
         AudioManager.Instance.PlaySFX(gunshot);
         fireCommand.Execute();
     }
