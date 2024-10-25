@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 080afff7455e0f741bd1b6c596079b32
+guid: 1b5635889772eb840a891b8e9d66ad05
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4883361942472830884
-    second: Health-Bar_0
+      213: 867430906297013300
+    second: gold coin_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Health-Bar_0
+      name: gold coin_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 250
-        height: 50
+        width: 512
+        height: 512
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4af21c240df25c340800000000000000
-      internalID: 4883361942472830884
+      spriteID: 434570d30dbb90c00800000000000000
+      internalID: 867430906297013300
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      Health-Bar_0: 4883361942472830884
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

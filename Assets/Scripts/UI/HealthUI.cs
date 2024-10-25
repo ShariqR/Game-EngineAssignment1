@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI : MonoBehaviour, IObserver
+public class HealthUI : MonoBehaviour, IObserver<int>
 {
     [SerializeField] private Image healthBar;
 

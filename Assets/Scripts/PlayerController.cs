@@ -3,15 +3,14 @@ using System.Windows.Input;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
-public class PlayerController : Subject
+public class PlayerController : Subject<int>
 {
-    public static PlayerController Instance { get; private set; }
-
     Rigidbody2D rb;
     [SerializeField] int health = 100; //Starting health
     [SerializeField] int maxHealth = 100;
-    //[SerializeField] int ammo = 0;
+    [SerializeField] int score = 0;
     [SerializeField] int moveSpeed;
     [SerializeField] int dashMultiplier;
     [SerializeField] LayerMask groundLayer;  // For checking if grounded
@@ -33,34 +32,22 @@ public class PlayerController : Subject
     private float jumpPower = 15f;
     private bool isGrounded;
 
-    [SerializeField] private UI ui;
+    [SerializeField] private HealthUI _healthUI;
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
-
         rb = GetComponent<Rigidbody2D>();
+        
         playerControls = new PlayerInputActions();
 
-        if (ui != null)
+        if (_healthUI != null)
         {
-            AddObserver(ui);
+            AddObserver(_healthUI);
         }
         else
         {
             Debug.LogWarning("UI is null");
         }
-        
-        
     }
 
     private void OnEnable()
@@ -166,17 +153,32 @@ public class PlayerController : Subject
         }
     }
 
+    public void Heal(int healAmount)
+    {
+        health += healAmount;
+        if (health > maxHealth) health = maxHealth;
+        
+        NotifyObservers(health);
+        
+        Debug.Log("health: " + health);
+    }
+
+    public int GetHealth()
+    {
+        return health;
+    }
+    
+    private void Die()
+    {
+        Debug.Log("Player is dead");
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
             TakeDamage(20);
-            Debug.Log("ouchie");
+            //Debug.Log("ouchie");
         }
-    }
-
-    private void Die()
-    {
-        Debug.Log("Player is dead");
     }
 }
