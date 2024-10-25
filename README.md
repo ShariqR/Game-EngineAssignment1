@@ -1,4 +1,4 @@
-Note: Build was too large and had issues uploading external files, we created a google drive link with the build, videos and the UML Diagrams: https://drive.google.com/drive/u/2/folders/1_8kGrMKSFXldYEt8FeignGcqZ7RUD1r4
+Note: Build was too large and had issues uploading external files, we created a google drive link with the build, project management proof, videos and the UML Diagrams: https://drive.google.com/drive/u/2/folders/1_8kGrMKSFXldYEt8FeignGcqZ7RUD1r4
 
 Ethan Mesina (100818647) 
 - Role: Created AudioManager, FireCommand, DashCommand, BulletFactory + UML Diagrams & Explanations
