@@ -1,4 +1,4 @@
-Note: Build was too big to submit as a Release, Google drive link: https://drive.google.com/file/d/1-OBMoMYRRAmuyc6DjHPTAagnpbV_AgRf/view?usp=sharing
+Note: Build was too large, we created a google drive link with the videos and the UML Diagram:
 
 Interactive Media Scenario:
 The Interactive Media Scenario we have created is a 2D SideScroller in Unity. The purpose of the scenario is to create a prototype that satisfies the requirements in Assignment 1. In this game, you as the player (a white square) are able to jump, fire different types of bullets, collect pickups to gain score or health, and take damage from objects on the ground. The user must pick up points in order to receive an achievement. Eventually, there will be enemies the player must fight while collecting points in order to complete the level.
