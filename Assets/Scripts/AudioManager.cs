@@ -1,24 +1,9 @@
 using System.Diagnostics;
 using UnityEngine;
 
-public class AudioManager : MonoBehaviour
+public class AudioManager : Singleton<AudioManager>
 {
-    public static AudioManager Instance { get; private set; }
     public AudioSource sfx;
-
-    void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
     public void PlaySFX(AudioClip clip)
     {
         if (sfx == null)
@@ -28,5 +13,4 @@ public class AudioManager : MonoBehaviour
         }
         sfx.PlayOneShot(clip);
     }
-
 }

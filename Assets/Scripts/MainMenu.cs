@@ -1,9 +1,8 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainMenu : MonoBehaviour
+public class MainMenu : Singleton<MainMenu>
 {
-    public static MainMenu manager;
     private int sceneNumber;
     private SceneInvoker sceneInvoker;
 
@@ -13,18 +12,7 @@ public class MainMenu : MonoBehaviour
         sceneInvoker = new SceneInvoker();
     }
 
-    void Awake()
-    {
-        if (manager == null)
-        {
-            manager = this;
-            DontDestroyOnLoad(this);
-        }
-        else if (manager != this)
-        {
-            Destroy(gameObject);
-        }
-    }
+
     public void LoadScene()
     {
         sceneNumber++;

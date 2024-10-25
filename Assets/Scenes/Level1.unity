@@ -1128,6 +1128,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 86a72db3-aa6c-4c53-9727-db27aefd7c79
     m_ActionName: 'Player/Reverse Dash[/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0944cc35-6b4a-424b-b12f-17eae333520c
+    m_ActionName: 'Player/AltFire[/Mouse/rightButton]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1462,6 +1466,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1109144028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1109144024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48d9f1f98a6dad04882142124bb08ded, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalBullet: {fileID: 2058127797608120500, guid: b701d1d1ca751f440b189f0ce8ed8fcd, type: 3}
+  largeBullet: {fileID: 368370145451227587, guid: ea3fcce39774ab547ba38574d0b608a2, type: 3}
 --- !u!1001 &1147244350
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1757,7 +1775,6 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-
   m_GameObject: {fileID: 1859595738}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -1765,7 +1782,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreSubject: {fileID: 0}
-  scoreUI: {fileID: 355513602}
+  scoreUI: {fileID: 0}
 --- !u!4 &1859595740
 Transform:
   m_ObjectHideFlags: 0
@@ -1781,15 +1798,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_GameObject: {fileID: 1109144024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48d9f1f98a6dad04882142124bb08ded, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  normalBullet: {fileID: 2058127797608120500, guid: b701d1d1ca751f440b189f0ce8ed8fcd, type: 3}
-  largeBullet: {fileID: 368370145451227587, guid: ea3fcce39774ab547ba38574d0b608a2, type: 3}
-
 --- !u!1 &1992929494
 GameObject:
   m_ObjectHideFlags: 0
