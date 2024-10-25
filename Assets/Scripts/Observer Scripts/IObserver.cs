@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public interface IObserver
+public interface IObserver<T>
 {
     //Subject uses this method to communicate with the observer
-    public void OnNotify(int health)
+    public void OnNotify(T value)
     {
         
     }
