@@ -1,5 +1,14 @@
 Note: Build was too large, we created a google drive link with the videos and the UML Diagrams: https://drive.google.com/drive/u/2/folders/1_8kGrMKSFXldYEt8FeignGcqZ7RUD1r4
 
+Ethan Mesina (100818647) 
+- Role: Created AudioManager, FireCommand, DashCommand, BulletFactory + UML Diagrams & Explanations
+
+Shariq Ravikumar (100752332)
+- Role: Created MainMenuManager, LoadSceneCommand, Attempted SpeedBoostFactory
+
+Samuel Fabra (100789656)
+- Role: Created Observers, Game Manager, CollectibleFactory
+
 Interactive Media Scenario:
 The Interactive Media Scenario we have created is a 2D SideScroller in Unity. The purpose of the scenario is to create a prototype that satisfies the requirements in Assignment 1. In this game, you as the player (a white square) are able to jump, fire different types of bullets, collect pickups to gain score or health, and take damage from objects on the ground. The user must pick up points in order to receive an achievement. Eventually, there will be enemies the player must fight while collecting points in order to complete the level.
 Each member contributed an equal amount to the assignment (33.33% each), and worked together to achieve what was completed in the assignment.
