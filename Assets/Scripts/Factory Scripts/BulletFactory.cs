@@ -26,4 +26,6 @@ public class BulletFactory : MonoBehaviour
 
         return Instantiate(bullet, position, rotation);
     }
+
+
 }

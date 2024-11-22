@@ -10,7 +10,6 @@ public class DashCommand : Command
         this.rb = rb; 
         this.direction = direction;   
         this.dashSpeed = dashSpeed; 
-
     }
     public override void Execute()
     {

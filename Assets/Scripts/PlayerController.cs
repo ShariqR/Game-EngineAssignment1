@@ -196,5 +196,6 @@ public class PlayerController : Subject<int>
             TakeDamage(20);
             //Debug.Log("ouchie");
         }
+
     }
 }

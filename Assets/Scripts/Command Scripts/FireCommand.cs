@@ -1,4 +1,5 @@
 using System.Windows.Input;
+using UnityEditor;
 using UnityEngine;
 using static UnityEngine.RuleTile.TilingRuleOutput;
 
@@ -25,6 +26,7 @@ public class FireCommand : Command
 
         Rigidbody2D bulletRb = bulletInstance.GetComponent<Rigidbody2D>();
 
+
         if (direction == Vector2.zero)
         {
             bulletRb.linearVelocity = Vector2.right * bulletSpeed;
@@ -32,6 +34,7 @@ public class FireCommand : Command
         else
             bulletRb.linearVelocity = direction * bulletSpeed;
 
+        UnityEngine.Object.Destroy(bulletInstance, 2f);
     }
 
     public override void Undo()
