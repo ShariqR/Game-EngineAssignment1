@@ -237,7 +237,7 @@ GameObject:
   - component: {fileID: 225693089}
   m_Layer: 6
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -306,7 +306,7 @@ Transform:
   m_GameObject: {fileID: 225693085}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.1786, y: -4.54, z: 0}
+  m_LocalPosition: {x: -0.15, y: -4.5, z: 0}
   m_LocalScale: {x: 27.572346, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -882,7 +882,7 @@ Transform:
   m_GameObject: {fileID: 782822843}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.95, y: -3.73, z: 0}
+  m_LocalPosition: {x: 4, y: -3.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1287,7 +1287,7 @@ MonoBehaviour:
   maxHealth: 100
   score: 0
   moveSpeed: 5
-  dashMultiplier: 30
+  dashMultiplier: 50
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -1295,7 +1295,8 @@ MonoBehaviour:
   groundCheckRadius: 0.2
   bulletSpeed: 30
   jumpSound: {fileID: 8300000, guid: d37a0d02e85dec547917a8cbb9e98fb4, type: 3}
-  gunshot: {fileID: 8300000, guid: 894818c01a3a8cb4594e51bb1d7d1a6f, type: 3}
+  gunshot: {fileID: 8300000, guid: 0177ae2e573555c46893b03958bccb5b, type: 3}
+  altGunshot: {fileID: 8300000, guid: be0a5dd7940065341b96d1c8bb30de83, type: 3}
   _healthUI: {fileID: 535121539}
 --- !u!1001 &947551809
 PrefabInstance:

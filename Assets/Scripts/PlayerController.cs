@@ -22,6 +22,7 @@ public class PlayerController : Subject<int>
     
     [SerializeField] AudioClip jumpSound;
     [SerializeField] AudioClip gunshot;
+    [SerializeField] AudioClip altGunshot;
     public PlayerInputActions playerControls;
     Vector2 moveDirection = Vector2.zero;
 
@@ -95,16 +96,20 @@ public class PlayerController : Subject<int>
 
     void Update()
     {
+        moveDirection = movement.ReadValue<Vector2>().normalized;
         Vector2 currentVelocity = rb.linearVelocity;
         rb.linearVelocity = new Vector2(moveDirection.x * moveSpeed, currentVelocity.y);
-        moveDirection = movement.ReadValue<Vector2>().normalized;
-        CheckIfGrounded(); // Check if the player is on the ground
         Command dashCommand = new DashCommand(rb, moveDirection, (moveSpeed * dashMultiplier));
 
         if (Input.GetKeyDown(KeyCode.Q))
             dashCommand.Execute();
         else if (Input.GetKeyDown(KeyCode.E))
             dashCommand.Undo();
+    }
+
+    void FixedUpdate()
+    {
+        CheckIfGrounded(); // Check if the player is on the ground
     }
 
 
@@ -118,7 +123,7 @@ public class PlayerController : Subject<int>
     void AltFire(InputAction.CallbackContext context)
     {
         Command fireCommand = new FireCommand(bulletFactory, rb, bulletSpeed, moveDirection, BulletType.Large);
-        AudioManager.Instance.PlaySFX(gunshot);
+        AudioManager.Instance.PlaySFX(altGunshot);
         fireCommand.Execute();
     }
 
@@ -195,6 +200,15 @@ public class PlayerController : Subject<int>
         {
             TakeDamage(20);
             //Debug.Log("ouchie");
+        }
+
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            movement.Disable();
+        }
+        else
+        {
+            movement.Enable();
         }
 
     }

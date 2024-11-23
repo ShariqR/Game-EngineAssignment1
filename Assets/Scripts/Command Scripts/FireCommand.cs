@@ -1,5 +1,6 @@
 using System.Windows.Input;
 using UnityEditor;
+using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 using static UnityEngine.RuleTile.TilingRuleOutput;
 
@@ -34,7 +35,8 @@ public class FireCommand : Command
         else
             bulletRb.linearVelocity = direction * bulletSpeed;
 
-        UnityEngine.Object.Destroy(bulletInstance, 2f);
+        //New - Destroys Bullet after a second
+        UnityEngine.Object.Destroy(bulletInstance, 0.75f);
     }
 
     public override void Undo()

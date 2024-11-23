@@ -27,7 +27,6 @@ public class DashCommand : Command
 
     public override void Undo()
     {
-
         if (direction == Vector2.zero)
         {
             rb.AddForce(Vector2.left * dashSpeed, ForceMode2D.Impulse);
