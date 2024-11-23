@@ -36,7 +36,7 @@ public class PlayerController : Subject<int>
     private float jumpPower = 15f;
     private bool isGrounded;
 
-    [SerializeField] private HealthUI _healthUI;
+    [SerializeField] private HealthObserver _healthUI;
 
     private void Awake()
     {

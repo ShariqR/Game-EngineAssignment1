@@ -2,16 +2,21 @@ using UnityEngine;
 
 public class CollectibleSpawner : MonoBehaviour
 {
-    public CollectibleType collectibleType;
-    
     void Start()
     {
-        GameObject collectible = CollectibleFactory.CreateCollectible(collectibleType);
+        CollectibleFactory factory = new CollectibleFactory();
+        
+        GameObject coin = factory.CreateCollectible(CollectibleType.Coin);
+        GameObject healthPickup = factory.CreateCollectible(CollectibleType.Health);
 
-        if (collectible != null)
+        if (coin != null)
         {
             //set position of spawned collectible
-            collectible.transform.position = transform.position;
+            coin.transform.position = transform.position;
+        }
+        else if (healthPickup != null)
+        {
+            healthPickup.transform.position = transform.position;
         }
     }
 }

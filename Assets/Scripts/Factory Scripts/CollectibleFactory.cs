@@ -8,28 +8,40 @@ public enum CollectibleType
 
 public class CollectibleFactory
 {
-    public static GameObject CreateCollectible(CollectibleType type)
+    private GameObject _coinPrefab;
+    private GameObject _healthPrefab;
+
+    public CollectibleFactory()
+    {
+        _coinPrefab = LoadPrefab("Prefabs/Coin");
+        _healthPrefab = LoadPrefab("Prefabs/HealthPickup");
+    }
+
+    private GameObject LoadPrefab(string path)
+    {
+        GameObject prefab = Resources.Load<GameObject>(path);
+
+        if (prefab == null)
+        {
+            Debug.LogError("Prefab not found at path: " + path);
+        }
+
+        return prefab;
+    }
+    
+    public GameObject CreateCollectible(CollectibleType type)
     {
         GameObject collectiblePrefab = null;
 
         switch (type)
         {
             case CollectibleType.Coin:
-                collectiblePrefab = Resources.Load<GameObject>("Prefabs/Coin");
-                break;
+                return _coinPrefab != null ? Object.Instantiate(_coinPrefab) : null;
             case CollectibleType.Health:
-                collectiblePrefab = Resources.Load<GameObject>("Prefabs/HealthPickup");
-                break;
-        }
-
-        if (collectiblePrefab != null)
-        {
-            return Object.Instantiate(collectiblePrefab);
-        }
-        else
-        {
-            Debug.LogError("Collectible prefab not found for type: " + type);
-            return null;
+                return _healthPrefab != null ? Object.Instantiate(_healthPrefab) : null;
+            default:
+                Debug.LogError("Collectible prefab not found for type: " + type);
+                return null;
         }
     }
 }
