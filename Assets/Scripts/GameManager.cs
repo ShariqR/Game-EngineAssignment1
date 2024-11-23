@@ -1,11 +1,12 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : Subject<int>
 {
     public static GameManager Instance { get; private set; }
     
     public ScoreSubject scoreSubject;
-    public ScoreUI scoreUI;
+    public ScoreObserver scoreUI;
 
     private int score;
     
