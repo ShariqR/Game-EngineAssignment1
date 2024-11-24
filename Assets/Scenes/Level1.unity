@@ -1310,6 +1310,7 @@ MonoBehaviour:
   jumpSound: {fileID: 8300000, guid: d37a0d02e85dec547917a8cbb9e98fb4, type: 3}
   gunshot: {fileID: 8300000, guid: 0177ae2e573555c46893b03958bccb5b, type: 3}
   altGunshot: {fileID: 8300000, guid: be0a5dd7940065341b96d1c8bb30de83, type: 3}
+  healSound: {fileID: 8300000, guid: 42d2cfb3ced57444fbc5237f324a1e22, type: 3}
   _healthUI: {fileID: 535121539}
 --- !u!1001 &947551809
 PrefabInstance:
@@ -2077,6 +2078,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1859595740}
   - component: {fileID: 1859595739}
+  - component: {fileID: 1859595741}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2113,6 +2115,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1859595741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1859595738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e26fc66641368549babd5023f8eff86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolSize: 5
 --- !u!1 &1992929494
 GameObject:
   m_ObjectHideFlags: 0

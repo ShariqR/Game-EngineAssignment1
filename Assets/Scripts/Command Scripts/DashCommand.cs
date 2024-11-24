@@ -15,7 +15,7 @@ public class DashCommand : Command
     {
         if (direction == Vector2.zero)
         {
-            rb.AddForce(Vector2.right * dashSpeed, ForceMode2D.Impulse);
+            rb.AddForceX(dashSpeed, ForceMode2D.Impulse);
         }
         else
         {
@@ -29,7 +29,7 @@ public class DashCommand : Command
     {
         if (direction == Vector2.zero)
         {
-            rb.AddForce(Vector2.left * dashSpeed, ForceMode2D.Impulse);
+            rb.AddForceX(-dashSpeed, ForceMode2D.Impulse);
         }
         else
         {

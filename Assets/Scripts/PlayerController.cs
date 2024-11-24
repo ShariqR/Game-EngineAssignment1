@@ -17,12 +17,14 @@ public class PlayerController : Subject<int>
     [SerializeField] Transform groundCheck;  // Position to check for ground
     [SerializeField] float groundCheckRadius = 0.2f; // Radius for ground check
 
-    BulletFactory bulletFactory;
+    //BulletFactory bulletFactory;
     [SerializeField] int bulletSpeed;
     
     [SerializeField] AudioClip jumpSound;
     [SerializeField] AudioClip gunshot;
     [SerializeField] AudioClip altGunshot;
+    [SerializeField] AudioClip healSound;
+
     public PlayerInputActions playerControls;
     Vector2 moveDirection = Vector2.zero;
 
@@ -43,7 +45,7 @@ public class PlayerController : Subject<int>
         rb = GetComponent<Rigidbody2D>();
         
         playerControls = new PlayerInputActions();
-        bulletFactory = FindObjectOfType<BulletFactory>();
+        //bulletFactory = FindObjectOfType<BulletFactory>();
 
         if (_healthUI != null)
         {
@@ -115,14 +117,14 @@ public class PlayerController : Subject<int>
 
     void Fire(InputAction.CallbackContext context)
     {
-        Command fireCommand = new FireCommand(bulletFactory, rb, bulletSpeed, moveDirection, BulletType.Normal);
+        Command fireCommand = new FireCommand(rb, bulletSpeed, moveDirection, BulletType.Normal);
         AudioManager.Instance.PlaySFX(gunshot);
         fireCommand.Execute();
     }
 
     void AltFire(InputAction.CallbackContext context)
     {
-        Command fireCommand = new FireCommand(bulletFactory, rb, bulletSpeed, moveDirection, BulletType.Large);
+        Command fireCommand = new FireCommand(rb, bulletSpeed, moveDirection, BulletType.Large);
         AudioManager.Instance.PlaySFX(altGunshot);
         fireCommand.Execute();
     }
@@ -177,6 +179,7 @@ public class PlayerController : Subject<int>
     public void Heal(int healAmount)
     {
         health += healAmount;
+        AudioManager.Instance.PlaySFX(healSound);
         if (health > maxHealth) health = maxHealth;
         
         NotifyObservers(health);

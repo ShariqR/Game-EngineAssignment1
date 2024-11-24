@@ -10,7 +10,7 @@ public class BulletFactory : MonoBehaviour
 {
     [SerializeField] GameObject normalBullet;
     [SerializeField] GameObject largeBullet;
-    public GameObject CreateBullet(Vector2 position, Quaternion rotation, BulletType bulletType)
+    public GameObject CreateBullet(BulletType bulletType)
     {
         GameObject bullet = null;
 
@@ -24,8 +24,7 @@ public class BulletFactory : MonoBehaviour
                 break;
         }
 
-        return Instantiate(bullet, position, rotation);
+        return Instantiate(bullet);
     }
-
 
 }
