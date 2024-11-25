@@ -43,10 +43,21 @@ public class BulletPool : Singleton<BulletPool>
         }
     }
 
-    public void ReturnBullet(GameObject bullet, BulletType type)
+    /* public void ReturnBullet(GameObject bullet, BulletType type)
+     {
+         bullet.SetActive(false);
+         GetBulletPool(type).Enqueue(bullet);
+     } */
+
+    public void ReturnBullets(List<GameObject> bullets, BulletType type)
     {
-        bullet.SetActive(false);
-        GetBulletPool(type).Enqueue(bullet);
+        Queue<GameObject> currentPool = GetBulletPool(type);
+
+        foreach (GameObject bullet in bullets)
+        {
+            bullet.SetActive(false);
+            currentPool.Enqueue(bullet);
+        }
     }
 
     Queue<GameObject> GetBulletPool(BulletType type)

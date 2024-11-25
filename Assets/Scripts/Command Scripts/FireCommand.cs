@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Windows.Input;
 using UnityEditor;
 using UnityEditor.ShaderKeywordFilter;
@@ -12,6 +13,7 @@ public class FireCommand : Command
     Vector2 direction;
     BulletType bulletType;
 
+    private static List<GameObject> activeBullets = new List<GameObject>();
     public FireCommand(Rigidbody2D rb, int bulletSpeed, Vector2 direction, BulletType bulletType)
     {
         this.rb = rb;
@@ -34,21 +36,19 @@ public class FireCommand : Command
         else
             bulletRb.linearVelocity = direction * bulletSpeed;
 
-        
-        bulletInstance.GetComponent<Bullet>().StartCoroutine(ReturnFiredBullet(bulletInstance, bulletType, 0.75f));
+        activeBullets.Add(bulletInstance);
+
+        if (activeBullets.Count == 5) 
+        {
+            BulletPool.Instance.ReturnBullets(activeBullets, bulletType);
+            activeBullets.Clear();
+        }
 
         //Destroys Bullet after a second
         //UnityEngine.Object.Destroy(bulletInstance, 0.75f);
     }
-
     public override void Undo()
     {
         //nothing
-    }
-
-    private IEnumerator ReturnFiredBullet(GameObject bullet, BulletType type, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        BulletPool.Instance.ReturnBullet(bullet, type);
     }
 }

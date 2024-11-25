@@ -57,33 +57,32 @@ public class PlayerController : Subject<int>
         }
     }
 
-    private void OnEnable()
+    void InputActions()
     {
         movement = playerControls.Player.Move;
-        movement.Enable();
-
         jumpAction = playerControls.Player.Jump;
-        jumpAction.Enable();
-
         fireAction = playerControls.Player.Fire;
-        fireAction.Enable();
-
         altFireAction = playerControls.Player.AltFire;
-        altFireAction.Enable();
-
         movement.performed += Move;
         jumpAction.performed += Jump;
         fireAction.performed += Fire;
         altFireAction.performed += AltFire;
-
         /*dashAction = playerControls.Player.Dash;
-        dashAction.Enable();
-
-        reverseDashAction = playerControls.Player.ReverseDash;
-        reverseDashAction.Enable();
-
+       reverseDashAction = playerControls.Player.ReverseDash;
+       
         dashAction.performed += Dash;
         reverseDashAction.performed += ReverseDash;*/
+    }
+
+    private void OnEnable()
+    {
+        InputActions();
+        movement.Enable();
+        jumpAction.Enable();
+        fireAction.Enable();
+        altFireAction.Enable();
+        /*dashAction.Enable();
+        reverseDashAction.Enable();*/
     }
 
     private void OnDisable()
@@ -129,17 +128,6 @@ public class PlayerController : Subject<int>
         fireCommand.Execute();
     }
 
-    /*void Dash(InputAction.CallbackContext context)
-    {
-        Command dashCommand = new DashCommand(rb, moveDirection, (moveSpeed * dashMultiplier));
-        dashCommand.Execute();
-    }
-
-    void ReverseDash(InputAction.CallbackContext context)
-    {
-        Command dashCommand = new DashCommand(rb, moveDirection, (moveSpeed * dashMultiplier));
-        dashCommand.Undo();
-    } */
 
     private void Move(InputAction.CallbackContext context)
     {
@@ -215,4 +203,17 @@ public class PlayerController : Subject<int>
         }
 
     }
+
+        /*void Dash(InputAction.CallbackContext context)
+    {
+        Command dashCommand = new DashCommand(rb, moveDirection, (moveSpeed * dashMultiplier));
+        dashCommand.Execute();
+    }
+
+    void ReverseDash(InputAction.CallbackContext context)
+    {
+        Command dashCommand = new DashCommand(rb, moveDirection, (moveSpeed * dashMultiplier));
+        dashCommand.Undo();
+    } */
+
 }
