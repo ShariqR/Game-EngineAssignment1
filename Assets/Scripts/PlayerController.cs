@@ -38,7 +38,7 @@ public class PlayerController : Subject<int>
     private float jumpPower = 15f;
     private bool isGrounded;
 
-    private SaveSystem saveSystem;
+    private PlayerSave playerSave;
 
     [SerializeField] private HealthObserver _healthUI;
 
@@ -58,11 +58,9 @@ public class PlayerController : Subject<int>
             Debug.LogWarning("UI is null");
         }
 
-        saveSystem = new SaveSystem();
+        // Initialize SaveSystem
+        playerSave = new PlayerSave();
 
-        // Try to load the player's position when the game starts
-        var position = saveSystem.LoadPlayerPosition();
-        transform.position = new Vector2(position.x, position.y);
     }
 
     void InputActions()
@@ -115,15 +113,13 @@ public class PlayerController : Subject<int>
         else if (Input.GetKeyDown(KeyCode.E))
             dashCommand.Undo();
 
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            SaveGame();
+        }
         if (Input.GetKeyDown(KeyCode.L))
         {
-            saveSystem.SavePlayerPosition(transform.position.x, transform.position.y);
-            Debug.Log("Location Saved");
-        }
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            saveSystem.SavePlayerPosition(0.0f, 0.0f);
-            Debug.Log("Location Reset");
+            LoadGame();
         }
     }
 
@@ -223,7 +219,26 @@ public class PlayerController : Subject<int>
 
     }
 
+    public void SaveGame()
+    {
+        PlayerData data = new PlayerData {Health = health, X = transform.position.x, Y = transform.position.y};
+        playerSave.Save(data);
+    }
 
+    public void LoadGame()
+    {
+        PlayerData data = playerSave.Load();
+        if (data != null)
+        {
+            health = data.Health;
+            transform.position = new Vector2(data.X, data.Y);
+            NotifyObservers(health);
+        }
+        else
+        {
+            Debug.Log("No save data found.");
+        }
+    }
 
 
     /*void Dash(InputAction.CallbackContext context)
