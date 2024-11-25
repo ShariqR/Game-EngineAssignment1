@@ -57,25 +57,12 @@ public class PlayerController : Subject<int>
         {
             Debug.LogWarning("UI is null");
         }
-    }
 
-    private void Start()
-    {
-        // Initialize SaveSystem
         saveSystem = new SaveSystem();
 
-        // Attempt to load data
-        PlayerData data = saveSystem.Load();
-        if (data != null)
-        {
-            health = data.Health;
-            transform.position = new Vector2(data.X, data.Y);
-            Debug.Log("Game Loaded!");
-        }
-        else
-        {
-            Debug.Log("No save data found. Starting new game.");
-        }
+        // Try to load the player's position when the game starts
+        var position = saveSystem.LoadPlayerPosition();
+        transform.position = new Vector2(position.x, position.y);
     }
 
     void InputActions()
@@ -130,7 +117,13 @@ public class PlayerController : Subject<int>
 
         if (Input.GetKeyDown(KeyCode.L))
         {
-            SaveGame();
+            saveSystem.SavePlayerPosition(transform.position.x, transform.position.y);
+            Debug.Log("Location Saved");
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            saveSystem.SavePlayerPosition(0.0f, 0.0f);
+            Debug.Log("Location Reset");
         }
     }
 
@@ -230,17 +223,7 @@ public class PlayerController : Subject<int>
 
     }
 
-    public void SaveGame()
-    {
-        PlayerData data = new PlayerData
-        {
-            Health = health,
-            X = transform.position.x,
-            Y = transform.position.y
-        };
-        saveSystem.Save(data);
-        Debug.Log("Game Saved!");
-    }
+
 
 
     /*void Dash(InputAction.CallbackContext context)
