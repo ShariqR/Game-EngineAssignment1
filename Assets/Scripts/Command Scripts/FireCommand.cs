@@ -12,8 +12,7 @@ public class FireCommand : Command
     int bulletSpeed;
     Vector2 direction;
     BulletType bulletType;
-
-    private static List<GameObject> activeBullets = new List<GameObject>();
+    static List<GameObject> activeBullets = new List<GameObject>();
     public FireCommand(Rigidbody2D rb, int bulletSpeed, Vector2 direction, BulletType bulletType)
     {
         this.rb = rb;
@@ -44,8 +43,6 @@ public class FireCommand : Command
             activeBullets.Clear();
         }
 
-        //Destroys Bullet after a second
-        //UnityEngine.Object.Destroy(bulletInstance, 0.75f);
     }
     public override void Undo()
     {

@@ -38,6 +38,8 @@ public class PlayerController : Subject<int>
     private float jumpPower = 15f;
     private bool isGrounded;
 
+    private SaveSystem saveSystem;
+
     [SerializeField] private HealthObserver _healthUI;
 
     private void Awake()
@@ -54,6 +56,25 @@ public class PlayerController : Subject<int>
         else
         {
             Debug.LogWarning("UI is null");
+        }
+    }
+
+    private void Start()
+    {
+        // Initialize SaveSystem
+        saveSystem = new SaveSystem();
+
+        // Attempt to load data
+        PlayerData data = saveSystem.Load();
+        if (data != null)
+        {
+            health = data.Health;
+            transform.position = new Vector2(data.X, data.Y);
+            Debug.Log("Game Loaded!");
+        }
+        else
+        {
+            Debug.Log("No save data found. Starting new game.");
         }
     }
 
@@ -106,6 +127,11 @@ public class PlayerController : Subject<int>
             dashCommand.Execute();
         else if (Input.GetKeyDown(KeyCode.E))
             dashCommand.Undo();
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            SaveGame();
+        }
     }
 
     void FixedUpdate()
@@ -204,16 +230,29 @@ public class PlayerController : Subject<int>
 
     }
 
-        /*void Dash(InputAction.CallbackContext context)
+    public void SaveGame()
     {
-        Command dashCommand = new DashCommand(rb, moveDirection, (moveSpeed * dashMultiplier));
-        dashCommand.Execute();
+        PlayerData data = new PlayerData
+        {
+            Health = health,
+            X = transform.position.x,
+            Y = transform.position.y
+        };
+        saveSystem.Save(data);
+        Debug.Log("Game Saved!");
     }
 
-    void ReverseDash(InputAction.CallbackContext context)
-    {
-        Command dashCommand = new DashCommand(rb, moveDirection, (moveSpeed * dashMultiplier));
-        dashCommand.Undo();
-    } */
+
+    /*void Dash(InputAction.CallbackContext context)
+{
+    Command dashCommand = new DashCommand(rb, moveDirection, (moveSpeed * dashMultiplier));
+    dashCommand.Execute();
+}
+
+void ReverseDash(InputAction.CallbackContext context)
+{
+    Command dashCommand = new DashCommand(rb, moveDirection, (moveSpeed * dashMultiplier));
+    dashCommand.Undo();
+} */
 
 }

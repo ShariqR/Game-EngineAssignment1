@@ -3,11 +3,10 @@ using UnityEngine;
 
 public class BulletPool : Singleton<BulletPool>
 {
-    //[SerializeField] GameObject bulletPrefab;
     BulletFactory bulletFactory;
     Queue<GameObject> bulletPool = new Queue<GameObject>();
     Queue<GameObject> largeBulletPool = new Queue<GameObject>();
-    public int poolSize = 5;
+    [SerializeField] int poolSize = 5;
 
     void Start()
     {
@@ -15,13 +14,13 @@ public class BulletPool : Singleton<BulletPool>
 
         for (int i = 0; i < poolSize; i++)
         {
-            //GameObject bullet = Instantiate(bulletPrefab);
             GameObject bullet = bulletFactory.CreateBullet(BulletType.Normal);
-            bullet.SetActive(false);
-            bulletPool.Enqueue(bullet);
-
             GameObject largeBullet = bulletFactory.CreateBullet(BulletType.Large);
+
+            bullet.SetActive(false);
             largeBullet.SetActive(false);
+
+            bulletPool.Enqueue(bullet);
             largeBulletPool.Enqueue(largeBullet);
         }
     }
@@ -39,15 +38,8 @@ public class BulletPool : Singleton<BulletPool>
         {
             Debug.Log("No Bullets!");
             return null;
-            //return Instantiate(bulletPrefab);
         }
     }
-
-    /* public void ReturnBullet(GameObject bullet, BulletType type)
-     {
-         bullet.SetActive(false);
-         GetBulletPool(type).Enqueue(bullet);
-     } */
 
     public void ReturnBullets(List<GameObject> bullets, BulletType type)
     {
