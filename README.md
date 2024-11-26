@@ -4,7 +4,9 @@ Contributions: Each member contributed an even amount of work (33.3%) and assist
 completion of all our tasks.
 
 Ethan Mesina (100818647) - Object Pooling/Batching, Load & Save Plugin
+
 Sam Fabra (100789656) - Dirty Flag
+
 Shariq Ravikumar (100752332) - Profiler
 
 Report: 
