@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Input;
-using UnityEditor;
-using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 using static UnityEngine.RuleTile.TilingRuleOutput;
 
