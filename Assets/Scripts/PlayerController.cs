@@ -3,6 +3,7 @@ using System.Windows.Input;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 using UnityEngine.Serialization;
 
 public class PlayerController : Subject<int>
@@ -221,7 +222,7 @@ public class PlayerController : Subject<int>
 
     public void SaveGame()
     {
-        PlayerData data = new PlayerData {Health = health, X = transform.position.x, Y = transform.position.y};
+        PlayerData data = new PlayerData {Health = health, X = transform.position.x, Y = transform.position.y, Score = GameManager.Instance.GetScore()};
         playerSave.Save(data);
     }
 
@@ -233,6 +234,7 @@ public class PlayerController : Subject<int>
             health = data.Health;
             transform.position = new Vector2(data.X, data.Y);
             NotifyObservers(health);
+            GameManager.Instance.SetScore(data.Score);
         }
         else
         {

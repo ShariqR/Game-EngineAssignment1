@@ -24,7 +24,7 @@ public class GameManager : Subject<int>
             return;
         }
         
-        scoreSubject.AddObserver(scoreUI);
+        //scoreSubject.AddObserver(scoreUI);
     }
 
     public void AddScore(int value)
@@ -36,5 +36,10 @@ public class GameManager : Subject<int>
     public int GetScore()
     {
         return score;
+    }
+
+    public void SetScore(int score)
+    {
+        NotifyObservers(score);
     }
 }
