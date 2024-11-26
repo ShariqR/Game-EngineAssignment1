@@ -11,7 +11,6 @@ public class PlayerController : Subject<int>
     Rigidbody2D rb;
     [SerializeField] int health = 100; //Starting health
     [SerializeField] int maxHealth = 100;
-    [SerializeField] int score = 0;
     [SerializeField] int moveSpeed;
     [SerializeField] int dashMultiplier;
     [SerializeField] LayerMask groundLayer;  // For checking if grounded
@@ -29,21 +28,21 @@ public class PlayerController : Subject<int>
     public PlayerInputActions playerControls;
     Vector2 moveDirection = Vector2.zero;
 
-    private InputAction movement;
-    private InputAction jumpAction; // Add this for jump input
-    private InputAction fireAction;
-    private InputAction altFireAction;
-    //private InputAction dashAction;
-   // private InputAction reverseDashAction;
+    InputAction movement;
+    InputAction jumpAction; // Add this for jump input
+    InputAction fireAction;
+    InputAction altFireAction;
+    //InputAction dashAction;
+    //InputAction reverseDashAction;
 
-    private float jumpPower = 15f;
-    private bool isGrounded;
+    float jumpPower = 15f;
+    bool isGrounded;
 
-    private PlayerSave playerSave;
+    PlayerSave playerSave;
 
-    [SerializeField] private HealthObserver _healthUI;
+    [SerializeField] HealthObserver _healthUI;
 
-    private void Awake()
+    void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         
@@ -81,7 +80,7 @@ public class PlayerController : Subject<int>
         reverseDashAction.performed += ReverseDash;*/
     }
 
-    private void OnEnable()
+    void OnEnable()
     {
         InputActions();
         movement.Enable();
@@ -92,7 +91,7 @@ public class PlayerController : Subject<int>
         reverseDashAction.Enable();*/
     }
 
-    private void OnDisable()
+    void OnDisable()
     {
         movement.Disable();
         jumpAction.Disable();
@@ -145,12 +144,12 @@ public class PlayerController : Subject<int>
     }
 
 
-    private void Move(InputAction.CallbackContext context)
+    void Move(InputAction.CallbackContext context)
     {
         Debug.Log("There's movement");
     }
 
-    private void Jump(InputAction.CallbackContext context)
+    void Jump(InputAction.CallbackContext context)
     {
         if (isGrounded)
         {
@@ -161,12 +160,12 @@ public class PlayerController : Subject<int>
     }
 
     // Check if the player is grounded by using an overlap circle at the ground check position
-    private void CheckIfGrounded()
+    void CheckIfGrounded()
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
     }
 
-    private void TakeDamage(int damage)
+    void TakeDamage(int damage)
     {
         
         health -= damage;
@@ -196,12 +195,12 @@ public class PlayerController : Subject<int>
         return health;
     }
     
-    private void Die()
+    void Die()
     {
         Debug.Log("Player is dead");
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {

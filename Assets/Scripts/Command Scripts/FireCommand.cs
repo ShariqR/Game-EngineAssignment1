@@ -30,7 +30,7 @@ public class FireCommand : Command
 
         if (direction == Vector2.zero)
         {
-            bulletRb.linearVelocity = Vector2.right * bulletSpeed;
+            bulletRb.linearVelocityX = bulletSpeed;
         }
         else
             bulletRb.linearVelocity = direction * bulletSpeed;
